@@ -1,9 +1,14 @@
 package com.example.diagnoseme;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,8 +21,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText email;
     EditText passWord;
     private ProgressBar progressBar;
-
     private static final String TAG = "LoginActivity";
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.editTextT_email);
         passWord = findViewById(R.id.editText_password_login);
         progressBar = findViewById(R.id.progressBar);
+        constraintLayout = findViewById(R.id.constraintLayout);
         hideProgressBar();
+
+        checkForNetwork();
 
         checkIfUserIsSignedIn();
 
@@ -50,9 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void showToast(View view) {
-        Toast.makeText(this, "Welcome to the Diagnose Me Help", Toast.LENGTH_LONG).show();
-    }
 
     public void signUp(){
         signUp.setOnClickListener((view)->{
@@ -64,6 +71,21 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         finish();
     }
+    private void checkForNetwork() {
+
+        if (!isNetworkConnected()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("");
+            builder.setMessage("No Network Available");
+            builder.show();
+        }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
 
     private void loginUSer(){
         login.setOnClickListener(new View.OnClickListener() {
@@ -72,28 +94,30 @@ public class LoginActivity extends AppCompatActivity {
                 String newEmail = email.getText().toString().trim();
                 String password = passWord.getText().toString();
 
+
                 if(newEmail.isEmpty()){
                     email.setError("Email is required");
                     return;
                 }
-                if(password.isEmpty()){
+                else if(password.isEmpty()){
                     passWord.setError("password is required");
                     return;
                 }
+
 
                 mfAuth.signInWithEmailAndPassword(newEmail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         showProgressBar();
-                        if (task.isSuccessful()){
-                            Log.d(TAG, "onComplete: login Successful" +task.isSuccessful());
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "onComplete: login Successful" + task.isSuccessful());
                             Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = mfAuth.getCurrentUser();
                             goToMainPage();
+                        }
 
-                        }else if(!task.isSuccessful()) {
-                                Log.d(TAG, "You are not Registered" + task.getResult());
-                            }
-                            else {
+                        else  {
+                                Log.d(TAG, "You are not Registered");
                             Toast.makeText(LoginActivity.this, "Unable to Login", Toast.LENGTH_SHORT).show();
                             hideProgressBar();
                         }

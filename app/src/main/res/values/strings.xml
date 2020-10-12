@@ -17,4 +17,6 @@
     <string name="create_account">Create Account</string>
     <string name="user_name">User Name</string>
     <string name="header_image">Header image</string>
+    <string name="login_now">Get Started</string>
+    <string name="splash_footer">There is a popular saying that health is Wealth. \n Stay healthy Always</string>
 </resources>

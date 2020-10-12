@@ -5,7 +5,8 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
+    android:background="#B5FFFFFF"
+    android:backgroundTint="@color/purple"
     tools:context=".LoginActivity">
 
     <androidx.cardview.widget.CardView
@@ -108,7 +109,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp"
+                android:progressDrawable="@drawable/progress_bar"
+
                 android:progressTint="@color/purple"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -122,9 +126,9 @@
         android:id="@+id/textView_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:text="Welcome"
-        android:textColor="#FFFF"
+        android:textColor="#090808"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -134,13 +138,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="134dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="241dp"
+        android:layout_height="217dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/airtel_home" />
+        app:srcCompat="@drawable/diagnose" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

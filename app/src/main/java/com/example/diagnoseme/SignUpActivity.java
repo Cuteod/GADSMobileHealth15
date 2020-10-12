@@ -1,9 +1,15 @@
 package com.example.diagnoseme;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView mIHaveAnAccount;
     private FirebaseAuth mfAuth = FirebaseAuth.getInstance();
     private static final String TAG = "SignUpActivity";
+    private static final String DEBUG_TAG = "NetworkStatusExample";
     private EditText mUserName;
 
 
@@ -46,7 +53,8 @@ public class SignUpActivity extends AppCompatActivity {
         mIHaveAnAccount = findViewById(R.id.textView_gotoLogin);
         progressBar = findViewById(R.id.progressBar_reg);
 
-
+        // To do check network
+       checkForNetwork();
 
         registerUser();
 
@@ -56,6 +64,25 @@ public class SignUpActivity extends AppCompatActivity {
                 goToLoginPage();
             }
         });
+    }
+
+
+
+    private void checkForNetwork(){
+
+        if(!isNetworkConnected()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("");
+            builder.setMessage("No Network Available");
+            builder.show();
+        }
+
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
     private void goToLoginPage() {
@@ -77,43 +104,44 @@ public class SignUpActivity extends AppCompatActivity {
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString();
                 String confirmPassword = mConfirmPassword.getText().toString();
-
-                if(email.isEmpty()){
+                int passwordLength = 6;
+                if (email.isEmpty()) {
                     mEmail.setError("Please provide an email address");
                     return;
-                }
-                if(password.isEmpty()){
+                } else if (password.isEmpty()) {
                     mPassword.setError("Password is required");
                     return;
-                }
-                if(confirmPassword.isEmpty()){
+                } else if (confirmPassword.isEmpty()) {
                     mConfirmPassword.setError("please put in same password");
                     return;
-                }
-
-                if(!password.equals(confirmPassword)){
+                } else if (!password.equals(confirmPassword)) {
                     Toast.makeText(SignUpActivity.this, "Password do not match", Toast.LENGTH_SHORT).show();
                     return;
-                }
+                } else if (password.length() < passwordLength) {
+                    mPassword.setError("password must be more that 6 character");
+                    return;
+                } else {
 
-                mfAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            showProgressBar();
-                            Log.d(TAG, "onComplete: Succesful" +task.isSuccessful());
-                            Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                            mfAuth.signOut();
-                            goToLoginPage();
 
-                        }else{
-                            Log.d(TAG, "onComplete: Not Successful" +task.getResult());
-                            Toast.makeText(SignUpActivity.this, "Unable to Register", Toast.LENGTH_SHORT).show();
-                            hideProgressBar();
+                    mfAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                showProgressBar();
+                                Log.d(TAG, "onComplete: Successful" + task.isSuccessful());
+                                Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                mfAuth.signOut();
+                                goToLoginPage();
+
+                            } else {
+                                Log.d(TAG, "onComplete: Not Successful" );
+                                Toast.makeText(SignUpActivity.this, "Unable to Register", Toast.LENGTH_SHORT).show();
+                                hideProgressBar();
+                            }
                         }
-                    }
-                });
+                    });
 
+                }
             }
         });
     }
