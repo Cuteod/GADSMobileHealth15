@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private  void goToRegistrationPage(){
+    private  void sendResetPassword(){
         startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         finish();
     }
@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
             builder.show();
         }
     }
-
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
