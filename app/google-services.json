@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "443176980346",
+    "firebase_url": "https://diagnose-me-6b9a5.firebaseio.com",
+    "project_id": "diagnose-me-6b9a5",
+    "storage_bucket": "diagnose-me-6b9a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443176980346:android:7b9d81deda6cabe98d90c3",
+        "android_client_info": {
+          "package_name": "com.example.diagnoseme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443176980346-kbgv6o8kjl7744ula1s2mc1ka3rc4hjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diagnoseme",
+            "certificate_hash": "d4d2d7870b321ede8d37030ab8cbda0f9348ae40"
+          }
+        },
+        {
+          "client_id": "443176980346-ok60bsob1vn4048kf6sotur9kf1f2o1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUjO_qYAlUYWBGbEm0Nna99n7oM-T3Ysw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443176980346-ok60bsob1vn4048kf6sotur9kf1f2o1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
