@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private static final String TAG = "LoginActivity";
     private ConstraintLayout constraintLayout;
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         passWord = findViewById(R.id.editText_password_login);
         progressBar = findViewById(R.id.progressBar);
         constraintLayout = findViewById(R.id.constraintLayout);
+        forgotPassword = findViewById(R.id.textView_forgot_password);
         hideProgressBar();
 
         checkForNetwork();
@@ -57,7 +59,14 @@ public class LoginActivity extends AppCompatActivity {
 
         loginUSer();
 
+        forgotPassword();
 
+    }
+
+    private void forgotPassword(){
+        forgotPassword.setOnClickListener((view)->{
+            startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+        });
     }
 
 
@@ -67,10 +76,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private  void sendResetPassword(){
-        startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-        finish();
-    }
     private void checkForNetwork() {
 
         if (!isNetworkConnected()) {
@@ -110,14 +115,14 @@ public class LoginActivity extends AppCompatActivity {
                         showProgressBar();
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: login Successful" + task.isSuccessful());
-                            Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Signed In", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mfAuth.getCurrentUser();
                             goToMainPage();
                         }
 
                         else  {
                                 Log.d(TAG, "You are not Registered");
-                            Toast.makeText(LoginActivity.this, "Unable to Login", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "invalid login details", Toast.LENGTH_SHORT).show();
                             hideProgressBar();
                         }
                     }
