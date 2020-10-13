@@ -19,10 +19,12 @@
     <string name="header_image">Header image</string>
     <string name="login_now">Get Started</string>
     <string name="splash_footer">There is a popular saying that health is Wealth. \n Stay healthy Always</string>
-    <string name="password">Password</string>
+    <string name="password_second">Password</string>
     <string name="email_login">email</string>
     <string name="login">Login</string>
     <string name="create_an_account">Create an Account</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="welcome_login">Welcome</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_email">Enter Email</string>
 </resources>
