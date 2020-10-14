@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/action_home">
+
+    <fragment
+        android:id="@+id/action_home"
+        android:name="com.example.diagnoseme.HomeFragments.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/action_suggest"
+        android:name="com.example.diagnoseme.HomeFragments.Suggestions"
+        android:label="fragment_suggestions"
+        tools:layout="@layout/fragment_suggestions" />
+    <fragment
+        android:id="@+id/action_doctor"
+        android:name="com.example.diagnoseme.HomeFragments.Doctors"
+        android:label="fragment_doctors"
+        tools:layout="@layout/fragment_doctors" />
+    <fragment
+        android:id="@+id/action_clinic"
+        android:name="com.example.diagnoseme.HomeFragments.Clinic"
+        android:label="fragment_clinic"
+        tools:layout="@layout/fragment_clinic" />
+    <fragment
+        android:id="@+id/action_account"
+        android:name="com.example.diagnoseme.HomeFragments.Account"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+</navigation>
