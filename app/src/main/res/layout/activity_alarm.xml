@@ -27,7 +27,7 @@
                 android:layout_height="26dp"
                 android:inputType="text"
                 android:hint="@string/title"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.023"
                 app:layout_constraintStart_toStartOf="parent"

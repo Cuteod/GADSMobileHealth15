@@ -13,7 +13,9 @@ public class AlertReceiver extends BroadcastReceiver {
     private String title;
     private String description;
 
-    public AlertReceiver() {
+    public AlertReceiver(String mTitle, String mDescription) {
+        title = mTitle;
+        description = mDescription;
     }
 
     @Override

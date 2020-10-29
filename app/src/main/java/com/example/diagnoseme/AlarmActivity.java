@@ -57,7 +57,7 @@ public class AlarmActivity extends AppCompatActivity implements TimePickerDialog
         mSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //new AlertReceiver(mEditText.getText().toString(),mEditText2.getText().toString());
+                new AlertReceiver(mEditText.getText().toString(),mEditText2.getText().toString());
             }
         });
     }
