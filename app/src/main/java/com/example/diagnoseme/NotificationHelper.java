@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat;
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "channelID";
     public static final String channelName = "Channel Name";
-    private static NotificationManager mManager;
+    public NotificationManager mManager;
 
     public NotificationHelper(Context base) {
         super(base);
@@ -27,16 +27,16 @@ public class NotificationHelper extends ContextWrapper {
         getManager().createNotificationChannel(channel);
     }
 
-    private NotificationManager getManager() {
+    public NotificationManager getManager() {
         if (mManager == null) {
             mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
         return mManager;
     }
-    public NotificationCompat.Builder getChannelNotification() {
+    public NotificationCompat.Builder getChannelNotification(String title, String description) {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
-                .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.")
+                .setContentTitle(title)
+                .setContentText(description)
                 .setSmallIcon(R.drawable.ic_baseline_access_alarm_24);
     }
 

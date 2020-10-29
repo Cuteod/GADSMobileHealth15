@@ -10,11 +10,13 @@ import android.text.style.TtsSpan;
 import android.view.View;
 import android.widget.DigitalClock;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 
 import java.text.DateFormat;
@@ -26,6 +28,11 @@ public class AlarmActivity extends AppCompatActivity implements TimePickerDialog
     private EditText mEditText2;
     private DigitalClock mDigitalClock;
     private TextView mTextView;
+    int hourOfDay;
+    int minute;
+    TimePicker  TimePicker;
+    private NotificationHelper mNotificationHelper;
+    private Switch mSwitch;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,15 +41,31 @@ public class AlarmActivity extends AppCompatActivity implements TimePickerDialog
 
         mEditText = (EditText) findViewById(R.id.textAlarmTitle);
         mEditText2 = (EditText) findViewById(R.id.editDescrip);
+        mSwitch = (Switch) findViewById(R.id.switchSave);
         mDigitalClock = (DigitalClock) findViewById(R.id.digitalClock);
+
+        mNotificationHelper = new NotificationHelper(this);
+
         mDigitalClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment timePicker = new DialogFragment();
+                DialogFragment timePicker = new com.example.diagnoseme.TimePicker();
                 timePicker.show(getSupportFragmentManager(), "time picker");
+                //onTimeSet(TimePicker, hourOfDay, minute);
+            }
+        });
+        mSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //new AlertReceiver(mEditText.getText().toString(),mEditText2.getText().toString());
             }
         });
     }
+//    public void sendOnChannel(String title, String description){
+//        NotificationCompat.Builder nb = mNotificationHelper.getChannelNotification(title, description);
+//        mNotificationHelper.getManager().no
+//
+//    }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -58,10 +81,10 @@ public class AlarmActivity extends AppCompatActivity implements TimePickerDialog
 
     private void updateTimeText(Calendar c) {
         DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
-        mEditText.getText();
+        mEditText.getText().toString();
 
         DateFormat.getTimeInstance(DateFormat.MEDIUM).format(c.getTime());
-        mEditText2.getText();
+        mEditText2.getText().toString();
 
 //        String Title = new String(mEditText.getText().toString());
 //        String Description = new String(mEditText2.getText().toString());
