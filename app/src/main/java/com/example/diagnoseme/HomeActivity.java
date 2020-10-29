@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mFAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mFAuth.getCurrentUser();
     private TextView welcome;
+    private ImageView mImageView;
     private static final String TAG = "HomeActivity";
 
     private BottomNavigationView mBottomNavigationView;
@@ -34,6 +36,15 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         signOut=  findViewById(R.id.button_sign_out);
         welcome = findViewById(R.id.textView_home_welcome);
+
+        mImageView = (ImageView) findViewById(R.id.imgClock);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, AlarmActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mBottomNavigationView = findViewById(R.id.bottom_nav);
         setUpNavigation();
